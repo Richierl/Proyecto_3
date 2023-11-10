@@ -3,6 +3,7 @@ import environ
 import psycopg2
 import sys
 import csv
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 env = environ.Env()
@@ -18,11 +19,11 @@ print(collection_exists)
 
 
 
-path = r'../wikiart/data/'
+path = f'''{BASE_DIR}/wikiart/data/'''
+print(path)
 files = os.listdir(path)
 artists = [f for f in files if '-art.csv' not in f]
 
-print(artists)
 for a in artists:
     with open(path+a, newline='') as f:
         reader = csv.reader(f)
@@ -93,7 +94,3 @@ for a in artworks:
             cur.execute(sql, (author_id, row[1], row[2], row[3], style_id,
                               period_id, genre_id, row[7]))
 conn.commit()
-
-#load_folder()
-
-

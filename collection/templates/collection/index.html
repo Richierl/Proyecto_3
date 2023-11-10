@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="container mx-auto px-5 py-2 lg:px-32 lg:pt-12">
-  <div class="-m-1 flex flex-wrap md:-m-2">
+  <div id="artworks-container" class="-m-1 flex flex-wrap md:-m-2">
     {% for artwork in artworks %}  
     <div class="flex w-1/4 flex-wrap pt-3">
       <div class="w-full p-1 md:p-2">
@@ -20,5 +20,13 @@
     </div>
     {% endfor %} 
   </div>
+  <button class="flex w-48 mt-10 justify-center mx-auto rounded-md
+        bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white
+        shadow-sm hover:bg-indigo-500 focus-visible:outline
+        focus-visible:outline-2 focus-visible:outline-offset-2 
+        focus-visible:outline-indigo-600"
+        hx-get="/artworks/random" hx-target="#artworks-container" hx-swap="beforeend"
+    >Get More Artworks</button>
+
 </div>
 {% endblock content %}
