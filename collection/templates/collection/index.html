@@ -1,6 +1,7 @@
 {% extends "collection/base.html" %}
 
 {% block content %}
+<<<<<<< HEAD
 
 <div class="container mx-auto px-5 py-2 lg:px-32 lg:pt-12">
   <div id="artworks-container" class="-m-1 flex flex-wrap md:-m-2">
@@ -30,3 +31,20 @@
 
 </div>
 {% endblock content %}
+=======
+<div class=" flex justify-center md:mx-auto md:max-w-screen-2xl px-2">
+        {% if user.is_authenticated %}
+        <div class="my-5 bg-slate-200 border-l-4 border-slate-500 text-slate-700 p-6" role="alert">
+        <p class="font-bold">Hola {{user.username}}</p>
+          <p>Aquí podras ver muchas pinturas.</p>
+          <p class="font-bold"> <a class="text-sky-600" href="/accounts/logout"> Termina la sesión </a></p>
+        </div>
+        {% else %}
+        <div class="my-5 bg-slate-200 border-l-4 border-slate-500 text-slate-700 p-6" role="alert">
+          <p class="font-bold">Hola</p>
+          <p > Por favor <a class="text-sky-600 font-bold" href="/accounts/login"> inicia sesión </a> para ver esta página.</p>
+        </div>
+        {% endif %}
+</div>
+{% endblock content %}
+>>>>>>> 7cf1a425a168682aa9b8302c27855f0a11375766

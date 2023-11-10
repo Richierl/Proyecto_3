@@ -2,11 +2,14 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
+<<<<<<< HEAD
 import random
 from collection.models import Artwork, Collection
 from django.contrib.postgres import search
 from django.core.paginator import Paginator
 from .forms import CollectionForm
+=======
+>>>>>>> 7cf1a425a168682aa9b8302c27855f0a11375766
 
 def register(request):
     if request.method == 'POST':
@@ -26,6 +29,7 @@ def register(request):
     return render(request, 'registration/registration_form.html', {'form': f})
 
 
+<<<<<<< HEAD
 def artwork(request, artwork_id):
     artwork = Artwork.objects.get(pk=artwork_id)
     return render(request, 'collection/artwork.html', {'artwork': artwork})
@@ -113,3 +117,7 @@ def ft_artworks(value):
         .filter(search=query)
         .order_by("-rank")
     )
+=======
+def index(request):
+    return render(request, 'collection/index.html', {'data': 'Not'})
+>>>>>>> 7cf1a425a168682aa9b8302c27855f0a11375766

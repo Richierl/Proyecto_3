@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
+<<<<<<< HEAD
     path("artwork/<int:artwork_id>", views.artwork, name="artwork"),
     path("artworks/search", views.search_artworks, name="search_artworks"),
     path("artworks/random", views.random_artworks, name="random_artworks"),
@@ -12,3 +13,8 @@ urlpatterns = [
     path("accounts/profile/", views.index, name="index"),
     path("accounts/register/", views.register, name="register")
 ]
+=======
+    path("accounts/profile/", views.index, name="index"),
+    path("accounts/register/", views.register, name="register")
+]
+>>>>>>> 7cf1a425a168682aa9b8302c27855f0a11375766

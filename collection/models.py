@@ -1,4 +1,5 @@
 from django.db import models
+<<<<<<< HEAD
 from django.contrib.auth.models import User
 
 
@@ -36,3 +37,6 @@ class Collection(models.Model):
     artworks = models.ManyToManyField(Artwork)
     name = models.CharField(max_length=80)
     description = models.TextField(blank=True)
+=======
+
+>>>>>>> 7cf1a425a168682aa9b8302c27855f0a11375766
