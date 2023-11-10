@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Artworks
 
 El modelo básico de la aplicación es el siguiente:
@@ -57,4 +56,3 @@ DB_DSN="dbname=artworks user=ubuntu password=MipasswordsupersecretO"
 ```
 =======
 # artworks
->>>>>>> 7cf1a425a168682aa9b8302c27855f0a11375766
