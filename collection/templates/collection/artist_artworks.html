@@ -1,0 +1,31 @@
+{% extends "collection/base.html" %}
+{% block content %}
+
+<div class="flex justify-center md:mx-auto md:max-w-screen-2xl px-2  bg-slate-200">
+    <div class="w-full md:w-3/4 lg:w-2/3">
+        <br>
+        <h2 class="text-gray-900 text-2xl title-font font-medium mb-1 text-center">Obras de {{ artist.name }}</h2>
+        {% if artworks %}
+        <br>
+        <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {% for artwork in artworks %}
+            <div
+                class="rounded-lg shadow-md p-6 transform scale-100 hover:scale-110 transition-transform bg-slate-300 shadow-outline">
+                <a href="/artwork/{{artwork.id}}">
+                    <img src="{{ artwork.image_url }}" alt="{{ artwork.title }}" class="w-full h-3/4 object-cover">
+                </a>
+                <h2 class="text-xl font-semibold mt-2 truncate">{{ artwork.title }}</h2>
+                <p class="text-sm text-gray-600 truncate">
+                    Artista: {{artwork.author.name}}</p>
+                <p class="text-sm text-gray-600 truncate">Estilo: {{ artwork.style.name }}</p>
+                <p class="text-sm text-gray-600 truncate">Género: {{ artwork.genre.name }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+</div>
+
+{% endblock content %}

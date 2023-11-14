@@ -1,0 +1,41 @@
+{% extends "collection/base.html" %}
+{% block content %}
+<div class="flex justify-center items-center md:mx-auto md:max-w-screen-2xl px-2 bg-slate-200 ">
+    <div class="w-full md:w-3/4 lg:w-2/3">
+        <br>
+        <h2 class="text-gray-900 text-2xl title-font font-medium mb-1 text-center">COLECCION</h2>
+        <h2 class="text-sm title-font text-gray-500 tracking-widest text-center">{{ collection.name }}</h2>
+        {% if artworks %}
+        <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {% for artwork in artworks %}
+            <div
+                class="relative rounded-lg shadow-md p-6 transform scale-100 hover:scale-110 transition-transform bg-slate-300 shadow-outline">
+                <a href="/artwork/{{artwork.id}}">
+                    <img src="{{ artwork.image_url }}" alt="{{ artwork.title }}" class="w-full h-3/4 object-cover">
+                </a>
+                <form action="{% url 'remove_from_collection' collection.id artwork.id %}" method="post"
+                    class="absolute bottom-2 right-2">
+                    {% csrf_token %}
+                    <button class="btn btn-square btn-outline">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500 hover:text-red-600"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </form>
+                <div class="mt-2">
+                    <h2 class="text-xl font-semibold truncate">{{ artwork.title }}</h2>
+                    <p class="text-sm text-gray-600 truncate">Artista: {{ artwork.author.name }}</p>
+                    <p class="text-sm text-gray-600 truncate">Estilo: {{ artwork.style.name }}</p>
+                    <p class="text-sm text-gray-600 truncate">Género: {{ artwork.genre.name }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-center text-gray-500">No hay pinturas en esta colección.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

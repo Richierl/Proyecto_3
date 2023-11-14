@@ -1,5 +1,5 @@
 {% load static %}
-<<<<<<< HEAD
+
 <nav class="bg-white shadow">
   <div class="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
     <div class="flex h-16 justify-between">
@@ -9,27 +9,18 @@
         </div>
         <div class="hidden lg:ml-6 lg:flex lg:space-x-8">
           <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-          <a href="/" class="inline-flex items-center border-b-2
-                        {% if request.path == '/' %}
-                        border-sky-600 
-                        {% else %} 
-                        border-transparent
-                        {% endif %}
-                        px-1 
-                        pt-1 text-sm font-medium text-gray-900">Principal</a>
-        {% if user.is_authenticated %}
-          <a href="/collections" class="inline-flex items-center border-b-2 
+          <a href="/" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-900 hover:border-gray-300 hover:text-gray-700
                         {% if request.path == '/collections/' %}
+                        border-sky-600
+                        {% else %} 
+                        border-transparent
+                        {% endif %}">Principal</a>
+          <a href="/collections" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-900 hover:border-gray-300 hover:text-gray-700  {% if request.path == '/collections/' %}
                         border-sky-600 
                         {% else %} 
                         border-transparent
-                        {% endif %}
-
-                        px-1
-                        pt-1 text-sm font-medium text-gray-500 hover:border-gray-300
-                        hover:text-gray-700">Mis Colecciones</a>
-
-        {% endif %}
+                        {% endif %}">Mis Colecciones
+          </a>
         </div>
       </div>
       <div class="flex flex-1 items-center justify-center px-2 lg:ml-6 lg:justify-end">
@@ -78,7 +69,7 @@
   </div>
 
 </nav>
-=======
+
 <div class=" flex justify-center md:mx-auto md:max-w-screen-xl px-2">
   <div class="mt-6 mx-auto">
      <a class="" href="/">
@@ -89,4 +80,4 @@
   </div>
 </div>
 
->>>>>>> 7cf1a425a168682aa9b8302c27855f0a11375766
+

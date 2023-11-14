@@ -1,11 +1,13 @@
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
-import random
-from collection.models import Artwork, Collection
-from django.contrib.postgres import search
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+from django.template.loader import render_to_string
+from django.contrib.postgres import search 
 from django.core.paginator import Paginator
+import random
+from .models import Artwork, Collection, Artist, Style, Genre
 from .forms import CollectionForm
 
 def register(request):
@@ -28,7 +30,8 @@ def register(request):
 
 def artwork(request, artwork_id):
     artwork = Artwork.objects.get(pk=artwork_id)
-    return render(request, 'collection/artwork.html', {'artwork': artwork})
+    collections = Collection.objects.filter(owner=request.user)
+    return render(request, 'collection/artwork.html', {'artwork': artwork, 'collections': collections})
 
 
 def collections(request):
@@ -117,5 +120,45 @@ def ft_artworks(value):
 def remove_collection(request, collection_id):
     collection = get_object_or_404(Collection, pk=collection_id, owner=request.user)
     collection.delete()
-    return redirect('collections')
+    return redirect("collections")
 
+def details(request, collection_id):
+    collection = get_object_or_404(Collection, id=collection_id)
+    artworks = collection.artworks.all()
+    return render(request, 'collection/details.html', {'collection': collection, 'artworks': artworks})
+
+def collection_edit(request, collection_id):
+    collection = get_object_or_404(Collection, id=collection_id)
+    if request.method == 'POST':
+        # Actualizar los campos de la colección  directamente
+        collection.name = request.POST.get('name')
+        collection.description = request.POST.get('description')
+        collection.save()
+        return  redirect('collections') 
+    return render(request, 'collection/collection_edit_form.html', {'collection': collection})
+
+
+def artist_artworks(request, artist_slug):
+    artist = get_object_or_404(Artist, slug=artist_slug)
+    artworks = Artwork.objects.filter(author=artist)
+    return render(request, 'collection/artist_artworks.html', {'artist': artist, 'artworks': artworks})
+
+def add_to_collection(request, artwork_id):
+    if request.method == 'POST':
+        artwork = get_object_or_404(Artwork, pk=artwork_id)
+        collection_id = request.POST.get('collection_id')
+        collection = get_object_or_404(Collection, pk=collection_id, owner=request.user)
+
+        # Agrega la pintura a la colección
+        collection.artworks.add(artwork)
+
+        return HttpResponse(status=204, headers={'HX-Trigger': 'listChanged'})
+
+    return HttpResponse(status=400)
+
+def remove_from_collection(request, collection_id, artwork_id):
+    collection = get_object_or_404(Collection, pk=collection_id, owner=request.user)
+    artwork = get_object_or_404(Artwork, pk=artwork_id)
+    # Elimina la pintura de la colección
+    collection.artworks.remove(artwork)
+    return redirect('details', collection_id=collection_id)
