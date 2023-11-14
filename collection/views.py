@@ -130,7 +130,6 @@ def details(request, collection_id):
 def collection_edit(request, collection_id):
     collection = get_object_or_404(Collection, id=collection_id)
     if request.method == 'POST':
-        # Actualizar los campos de la colección  directamente
         collection.name = request.POST.get('name')
         collection.description = request.POST.get('description')
         collection.save()
